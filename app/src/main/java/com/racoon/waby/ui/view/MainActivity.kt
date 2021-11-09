@@ -1,7 +1,8 @@
-package com.racoon.waby
+package com.racoon.waby.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.racoon.waby.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
