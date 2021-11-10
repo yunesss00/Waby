@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "378264786934",
+    "project_id": "racoonapps-cd246",
+    "storage_bucket": "racoonapps-cd246.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378264786934:android:571533050a6c2b874ed9d7",
+        "android_client_info": {
+          "package_name": "com.racoon.waby"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "378264786934-iqmrnrmh8eviu0dah9aolgcn4dm3b24a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8r0AAdf6rc_jukaqqNaEQA_B8eYvwm1g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "378264786934-iqmrnrmh8eviu0dah9aolgcn4dm3b24a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
