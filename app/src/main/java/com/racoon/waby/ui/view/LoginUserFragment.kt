@@ -1,17 +1,18 @@
 package com.racoon.waby.ui.view
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.setFragmentResultListener
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.racoon.waby.R
 import com.racoon.waby.data.model.User
 import com.racoon.waby.databinding.FragmentLoginUserBinding
+import com.racoon.waby.ui.viewmodel.LoginUserViewModel
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -30,16 +31,23 @@ class LoginUserFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private val loginUserViewModel: LoginUserViewModel by activityViewModels()
+
+    fun passUserCredentials (user: User) {
+        loginUserViewModel.selectUser(user)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             email = it.getString(ARG_PARAM1)
             passwd = it.getString(ARG_PARAM2)
         }
-        setFragmentResult(
+
+        /*setFragmentResult(
             "request_key",
             bundleOf("bundle_key" to email)
-        )
+        )*/
 
 
     }
@@ -60,9 +68,23 @@ class LoginUserFragment : Fragment() {
             findNavController().navigate(R.id.action_loginUserFragment_to_loginAdminUserFragment)
         }
 
+        val user = User(email = email,passwd = passwd)
+        binding.registerButton.setOnClickListener {
+            //val email = binding.emailEditText.text
+            //val passwd = binding.passwordEditText.text
+            val email = user.email!!
+            val passwd = user.passwd!!
+            if (user.email.isNotBlank() && passwd.isNotBlank()) {
+                passUserCredentials(user)
+            }else{
+                //showAlert(context)
+            }
+        }
+
+
     }
 
-    companion object {
+    /*companion object {
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -81,6 +103,7 @@ class LoginUserFragment : Fragment() {
                 }
             }
     }
+*/
 
 
 }
