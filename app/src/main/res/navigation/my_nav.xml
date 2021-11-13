@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/loginUserFragment">
+    <fragment
+        android:id="@+id/loginUserFragment"
+        android:name="com.racoon.waby.ui.view.LoginUserFragment"
+        android:label="fragment_login_user"
+        tools:layout="@layout/fragment_login_user" >
+        <action
+            android:id="@+id/action_loginUserFragment_to_loginAdminUserFragment"
+            app:destination="@id/loginAdminUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginAdminUserFragment"
+        android:name="com.racoon.waby.ui.view.LoginAdminUserFragment"
+        android:label="fragment_login_admin_user"
+        tools:layout="@layout/fragment_login_admin_user" >
+        <action
+            android:id="@+id/action_loginAdminUserFragment_to_loginUserFragment"
+            app:destination="@id/loginUserFragment"
+            app:popUpTo="@id/loginUserFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>

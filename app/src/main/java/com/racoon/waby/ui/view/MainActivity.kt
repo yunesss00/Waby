@@ -2,16 +2,34 @@ package com.racoon.waby.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.racoon.waby.R
 import com.racoon.waby.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+
+        //from loginUserFragment
+        /*supportFragmentManager
+            .setFragmentResultListener(
+                "request_key",this) { requestKey, bundle ->
+                val email = bundle.getString("bundle_key")
+                authentication(email)
+            }*/
+
     }
+
+
 }
+

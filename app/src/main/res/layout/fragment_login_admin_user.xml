@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.LoginUserFragment">
+    tools:context=".ui.view.LoginAdminUserFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/email"
+            android:hint="Email"
             android:inputType="textEmailAddress"
             android:minHeight="48dp" />
 
@@ -47,28 +47,26 @@
             android:id="@+id/googleButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Google" />
+            android:text="@string/google" />
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="¿Aún no tienes una cuenta?" />
+            android:text="¿Aún no tienes una cuenta de administrador?" />
 
         <Button
             android:id="@+id/registerButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Regístrate" />
+            android:text="Regístrate como administrador" />
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/adminUserButton"
+        android:id="@+id/userButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:text="Soy Administrador" />
-
-
+        android:text="Soy Usuario" />
 </FrameLayout>
