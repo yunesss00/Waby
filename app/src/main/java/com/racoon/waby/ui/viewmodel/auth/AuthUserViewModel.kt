@@ -7,7 +7,7 @@ import com.racoon.waby.domain.usecases.authuser.AuthUserUseCaseImpl
 import com.racoon.waby.ui.view.MainActivity
 import kotlinx.coroutines.launch
 
-class AuthUserViewModel : ViewModel() ,AuthContract{
+class AuthUserViewModel() : ViewModel() ,AuthContract{
 
     private val authUserUseCase = AuthUserUseCaseImpl()
     var view: AuthContract.authView? = null
@@ -17,8 +17,6 @@ class AuthUserViewModel : ViewModel() ,AuthContract{
         viewModelScope.launch {
             try {
                 authUserUseCase.firebaseDefaultAuth(user)
-                view?.a()
-                view?.navigateToRegister(user)
 
             }catch (e:AuthExeptions) {
                 view?.showError(e.message)

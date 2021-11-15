@@ -29,7 +29,6 @@
     </fragment>
     <fragment
         android:id="@+id/registerUserFragment"
-        android:name="com.racoon.waby.registerUserFragment"
-        android:label="Registro"
-        tools:layout="@layout/fragment_register_user" />
+        android:name="com.racoon.waby.ui.view.RegisterUserFragment"
+        android:label="Registro" />
 </navigation>

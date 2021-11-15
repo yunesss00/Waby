@@ -52,11 +52,6 @@ class MainActivity : AppCompatActivity(), AuthContract {
         Toast.makeText(this,msgError, Toast.LENGTH_LONG).show()
     }
 
-    fun navigateToRegister(user: User) {
-        println("navegando al register")
-        val intent = Intent(this,AuxiliarActivity::class.java)
-        startActivity(intent)
-    }
 
 
 

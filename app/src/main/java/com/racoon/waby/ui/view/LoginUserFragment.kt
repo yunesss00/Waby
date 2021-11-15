@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.racoon.waby.R
@@ -15,6 +16,7 @@ import com.racoon.waby.ui.viewmodel.auth.AuthUserViewModel
 
 
 class LoginUserFragment : Fragment() {
+
 
     //ViewBiding
     private  var _binding:FragmentLoginUserBinding? = null
@@ -46,6 +48,7 @@ class LoginUserFragment : Fragment() {
         //val user = User(email = email,passwd = passwd)
         binding.registerButton.setOnClickListener {
             registerDefault()
+            findNavController().navigate(R.id.action_loginUserFragment_to_registerUserFragment)
         }
     }
 
