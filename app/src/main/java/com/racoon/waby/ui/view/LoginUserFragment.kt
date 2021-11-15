@@ -11,16 +11,10 @@ import androidx.navigation.fragment.findNavController
 import com.racoon.waby.R
 import com.racoon.waby.data.model.User
 import com.racoon.waby.databinding.FragmentLoginUserBinding
-import com.racoon.waby.ui.viewmodel.auth.AuthContract
 import com.racoon.waby.ui.viewmodel.auth.AuthUserViewModel
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "email"
-private const val ARG_PARAM2 = "passwd"
-
-class LoginUserFragment : Fragment() ,AuthContract {
+class LoginUserFragment : Fragment() {
 
     //ViewBiding
     private  var _binding:FragmentLoginUserBinding? = null
@@ -30,7 +24,9 @@ class LoginUserFragment : Fragment() ,AuthContract {
 
     private val authUserViewModel: AuthUserViewModel by activityViewModels()
 
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -61,17 +57,11 @@ class LoginUserFragment : Fragment() ,AuthContract {
             val user = User(email = email, passwd = passwd)
             authUserViewModel.registerDefault(user)
         }else{
-            val toast = Toast.makeText(context, "Uno o ambos campos están vacíos", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Uno o ambos campos están vacíos", Toast.LENGTH_SHORT).show()
         }
     }
 
-    override fun showError(msgError: String?) {
-        Toast.makeText(context,msgError,Toast.LENGTH_LONG).show()
-    }
 
-    override fun navegateToRegister(user: User) {
-        
-    }
 
 
 }

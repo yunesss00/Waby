@@ -7,21 +7,29 @@
     <fragment
         android:id="@+id/loginUserFragment"
         android:name="com.racoon.waby.ui.view.LoginUserFragment"
-        android:label="fragment_login_user"
-        tools:layout="@layout/fragment_login_user" >
+        android:label="Usuario"
+        tools:layout="@layout/fragment_login_user">
         <action
             android:id="@+id/action_loginUserFragment_to_loginAdminUserFragment"
             app:destination="@id/loginAdminUserFragment" />
+        <action
+            android:id="@+id/action_loginUserFragment_to_registerUserFragment"
+            app:destination="@id/registerUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginAdminUserFragment"
         android:name="com.racoon.waby.ui.view.LoginAdminUserFragment"
-        android:label="fragment_login_admin_user"
-        tools:layout="@layout/fragment_login_admin_user" >
+        android:label="Usuario administrador"
+        tools:layout="@layout/fragment_login_admin_user">
         <action
             android:id="@+id/action_loginAdminUserFragment_to_loginUserFragment"
             app:destination="@id/loginUserFragment"
             app:popUpTo="@id/loginUserFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/registerUserFragment"
+        android:name="com.racoon.waby.registerUserFragment"
+        android:label="Registro"
+        tools:layout="@layout/fragment_register_user" />
 </navigation>

@@ -4,6 +4,13 @@ import com.racoon.waby.data.model.User
 
 interface AuthContract {
 
-    fun showError(msgError: String?)
-    fun navegateToRegister(user: User)
+   interface authView {
+       fun showError(msgError: String?)
+       fun navigateToRegister(user: User) {
+           println("authcontact")
+       }
+       fun a () {
+           println("a")
+       }
+   }
 }

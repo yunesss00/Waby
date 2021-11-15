@@ -11,7 +11,7 @@ class AuthUserUseCaseImpl : AuthUserUseCase{
     override suspend fun firebaseDefaultAuth(user: User) {
         val email = user.email!!
         val passwd = user.passwd!!
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, passwd)
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, passwd)
 
 
 

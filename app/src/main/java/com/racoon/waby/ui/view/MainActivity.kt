@@ -1,13 +1,21 @@
 package com.racoon.waby.ui.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
+import com.racoon.waby.R
+import com.racoon.waby.data.model.User
 import com.racoon.waby.databinding.ActivityMainBinding
+import com.racoon.waby.ui.viewmodel.auth.AuthContract
 import com.racoon.waby.ui.viewmodel.auth.AuthUserViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AuthContract {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
@@ -19,8 +27,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        navController = navHostFragment.navController
 
-
+        //llama al metodo para volver al fragmet anterior
+        NavigationUI.setupActionBarWithNavController(this,navController)
 
         //from loginUserFragment
         /*supportFragmentManager
@@ -31,6 +43,22 @@ class MainActivity : AppCompatActivity() {
             }*/
 
     }
+    //para volver al fragment anterior
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp()
+    }
+
+    fun showError(msgError: String?) {
+        Toast.makeText(this,msgError, Toast.LENGTH_LONG).show()
+    }
+
+    fun navigateToRegister(user: User) {
+        println("navegando al register")
+        val intent = Intent(this,AuxiliarActivity::class.java)
+        startActivity(intent)
+    }
+
+
 
 
 }

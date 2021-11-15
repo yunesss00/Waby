@@ -4,25 +4,30 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.racoon.waby.data.model.User
 import com.racoon.waby.domain.usecases.authuser.AuthUserUseCaseImpl
+import com.racoon.waby.ui.view.MainActivity
 import kotlinx.coroutines.launch
 
-class AuthUserViewModel : ViewModel() {
+class AuthUserViewModel : ViewModel() ,AuthContract{
 
     private val authUserUseCase = AuthUserUseCaseImpl()
-    var view: AuthContract? = null
+    var view: AuthContract.authView? = null
 
     fun registerDefault(user: User) {
 
         viewModelScope.launch {
             try {
                 authUserUseCase.firebaseDefaultAuth(user)
-                view?.navegateToRegister(user)
+                view?.a()
+                view?.navigateToRegister(user)
 
             }catch (e:AuthExeptions) {
                 view?.showError(e.message)
             }
         }
     }
+
+
+
 
 
 
