@@ -8,11 +8,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.racoon.waby.R
 import com.racoon.waby.data.model.User
+import com.racoon.waby.data.repository.UserRepository
+import com.racoon.waby.data.repository.UserRepositoryImp
 import com.racoon.waby.databinding.FragmentLoginUserBinding
+import com.racoon.waby.domain.usecases.authuser.AuthUserUseCaseImpl
 import com.racoon.waby.ui.viewmodel.auth.AuthUserViewModel
+import com.racoon.waby.ui.viewmodel.auth.VMFactory
 
 
 class LoginUserFragment : Fragment() {
@@ -24,7 +29,9 @@ class LoginUserFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val authUserViewModel: AuthUserViewModel by activityViewModels()
+    private val authUserViewModel: AuthUserViewModel by viewModels<AuthUserViewModel> {
+        VMFactory(AuthUserUseCaseImpl(UserRepositoryImp()) )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

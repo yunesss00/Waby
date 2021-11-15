@@ -1,27 +1,43 @@
 package com.racoon.waby.ui.viewmodel.auth
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.racoon.waby.data.model.User
+import com.racoon.waby.domain.usecases.authuser.AuthUserUseCase
 import com.racoon.waby.domain.usecases.authuser.AuthUserUseCaseImpl
 import com.racoon.waby.ui.view.MainActivity
+import com.racoon.waby.vo.Resource
+import com.squareup.okhttp.Dispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AuthUserViewModel() : ViewModel() ,AuthContract{
+class AuthUserViewModel(private val authUserUseCase: AuthUserUseCase) : ViewModel(){
 
-    private val authUserUseCase = AuthUserUseCaseImpl()
-    var view: AuthContract.authView? = null
+    //private val authUserUseCase = AuthUserUseCaseImpl()
+    //var view: AuthContract.authView? = null
 
     fun registerDefault(user: User) {
 
-        viewModelScope.launch {
+        println("estoy en el viewmodel")
+        val fetchUserAuth = liveData() {
+            emit(Resource.Loading())
+            try {
+                println("estoy en el try")
+                emit(authUserUseCase.firebaseDefaultAuth(user))
+            } catch (e: Exception) {
+                emit(Resource.Failure(e))
+            }
+        }
+
+       /* viewModelScope.launch {
             try {
                 authUserUseCase.firebaseDefaultAuth(user)
 
             }catch (e:AuthExeptions) {
-                view?.showError(e.message)
+                //view?.showError(e.message)
             }
-        }
+        }*/
     }
 
 
