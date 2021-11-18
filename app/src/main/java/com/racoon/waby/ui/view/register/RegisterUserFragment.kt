@@ -5,10 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.racoon.waby.databinding.FragmentLoginUserBinding
 import com.racoon.waby.databinding.FragmentRegisterUserBinding
 
-class RegisterUserNameFragment : Fragment() {
+class RegisterUserFragment : Fragment() {
 
     //ViewBiding
     private  var _binding: FragmentRegisterUserBinding? = null
