@@ -1,23 +1,55 @@
 package com.racoon.waby.ui.viewmodel.auth
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
-import com.racoon.waby.data.model.User
+import android.app.Application
+import androidx.lifecycle.*
+import com.google.firebase.auth.FirebaseUser
 import com.racoon.waby.domain.usecases.authuser.AuthUserUseCase
-import com.racoon.waby.domain.usecases.authuser.AuthUserUseCaseImpl
-import com.racoon.waby.ui.view.MainActivity
-import com.racoon.waby.vo.Resource
-import com.squareup.okhttp.Dispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+
 
 class AuthUserViewModel(private val authUserUseCase: AuthUserUseCase) : ViewModel(){
+
+    private var userData = MutableLiveData<FirebaseUser?>()
+    private var loggedStatus = MutableLiveData<Boolean>()
+
+    fun oncreate() {
+
+        userData = authUserUseCase.getFirebaseUserMutableLiveData()
+        loggedStatus = authUserUseCase.getUserLoggedMutableLiveData()
+    }
+
+    fun getUserData() : MutableLiveData<FirebaseUser?> {
+        return userData
+    }
+
+    fun getLoggedStatus() : MutableLiveData<Boolean> {
+        return loggedStatus
+    }
+
+    fun registerAuthDefault (email: String, passwd: String) {
+        authUserUseCase.firebaseDefaultAuthRegister(email,passwd)
+    }
+
+
+
+    fun signInAuthDefault(email: String,passwd: String) {
+        authUserUseCase.firebaseDefaultAuthSignIn(email,passwd)
+    }
+
+    fun logOut() {
+        //todo
+    }
+
+
+
+
+
+
+
 
     //private val authUserUseCase = AuthUserUseCaseImpl()
     //var view: AuthContract.authView? = null
 
-    fun registerDefault(user: User) {
+    /*fun registerDefault(user: User) {
 
         println("estoy en el viewmodel")
         val fetchUserAuth = liveData() {
@@ -30,39 +62,34 @@ class AuthUserViewModel(private val authUserUseCase: AuthUserUseCase) : ViewMode
             }
         }
 
-       /* viewModelScope.launch {
-            try {
-                authUserUseCase.firebaseDefaultAuth(user)
+    }*/
 
-            }catch (e:AuthExeptions) {
-                //view?.showError(e.message)
-            }
-        }*/
+
+/*
+    private val registerAuthSLE = SingleLiveEvent<Boolean>()
+    private val signInAuthSLE = SingleLiveEvent<Boolean>()
+    val registerAuthLD: LiveData<Boolean> = registerAuthSLE
+    val signInAuthLD: LiveData<Boolean> = signInAuthSLE
+    //val selectedUser: LiveData<User> get() = user
+
+
+
+    fun registerAuthDefault (user: User) {
+
+
+        if (authUserUseCase.firebaseDefaultAuthRegister(user)) {
+            println("se a registrao")
+            registerAuthSLE.value = true
+        }else {
+            println("no se ha registrado")
+        }
     }
 
+    fun signInAuthDefault (email: String, passwd: String) {
 
-
-
-
-
-
-    /*
-
-    val mutableSelectedUser = MutableLiveData<User>()
-    val selectedUser: LiveData<User> get() = mutableSelectedUser
-
-    fun selectUser (user: User) {
-        mutableSelectedUser.value = user
-    }
-
-
-    fun loginUser(user: User) {
-        selectUser (loginDefaultUserUseCase.firebaseAuth())
-    }
-
-    //LiveData que será observado por la view
-    fun getSelectedUserLiveData() : LiveData<User> {
-        return mutableSelectedUser
+        if (authUserUseCase.firebaseDefaultAuthSignIn(email,passwd)) {
+            registerAuthSLE.value = true
+        }
     }*/
 
     /*fun onCreate() {
@@ -74,11 +101,6 @@ class AuthUserViewModel(private val authUserUseCase: AuthUserUseCase) : ViewMode
                 showNext(result)
             }
         }
-    }*/
-
-    /*private fun showNext(result: String) {
-        val auxiliarIntent = Intent()
-        startActivity(auxiliarIntent)
     }*/
 
 }

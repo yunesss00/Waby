@@ -1,9 +1,14 @@
 package com.racoon.waby.domain.usecases.authuser
 
-import com.racoon.waby.vo.Resource
-import com.racoon.waby.data.model.User
+import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.FirebaseUser
 
 interface AuthUserUseCase {
 
-    fun firebaseDefaultAuth(user: User) : Resource<User>
+    fun firebaseDefaultAuthRegister(email: String, passwd: String)
+    fun firebaseDefaultAuthSignIn(email: String, passwd: String)
+
+    fun getFirebaseUserMutableLiveData() : MutableLiveData<FirebaseUser?>
+    fun getUserLoggedMutableLiveData() : MutableLiveData<Boolean>
+
 }

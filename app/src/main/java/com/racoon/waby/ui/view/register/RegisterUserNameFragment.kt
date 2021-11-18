@@ -1,4 +1,4 @@
-package com.racoon.waby.ui.view
+package com.racoon.waby.ui.view.register
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.racoon.waby.databinding.FragmentLoginUserBinding
 import com.racoon.waby.databinding.FragmentRegisterUserBinding
 
-class RegisterUserFragment : Fragment() {
+class RegisterUserNameFragment : Fragment() {
 
     //ViewBiding
     private  var _binding: FragmentRegisterUserBinding? = null

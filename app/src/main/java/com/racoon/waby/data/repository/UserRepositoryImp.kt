@@ -1,35 +1,62 @@
 package com.racoon.waby.data.repository
 
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.racoon.waby.data.model.User
-import com.racoon.waby.vo.Resource
-import java.lang.Exception
+import com.google.firebase.auth.FirebaseUser
+
+
 
 class UserRepositoryImp : UserRepository {
-    override fun setUserFirebase(user: User): Resource<User>  {
 
-        println("creo el user")
-        val email = user.email!!
-        val passwd = user.passwd!!
+    private var auth: FirebaseAuth
+    private var firebaseUserMutableLiveData = MutableLiveData<FirebaseUser?>()
+    private var userLoggedMutableLiveData = MutableLiveData<Boolean>()
 
-        try {
-            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, passwd)
-            Resource.Success(user)
-        } catch (e:Exception) {
-            Resource.Failure(e)
+    init {
+        auth = FirebaseAuth.getInstance()
+        if (auth.currentUser != null) {
+            firebaseUserMutableLiveData.postValue(auth.currentUser)
+        } else {
+            firebaseUserMutableLiveData.postValue(null)
         }
-
-        return Resource.Success(user)
-
-
     }
 
-    /*override fun returnSuccess(user: User): Resource<User> {
-        return Resource.Success(user)
-    }*/
+
+    override fun registerDefault(email: String, passwd: String) {
 
 
+        println("creando")
+
+        auth.createUserWithEmailAndPassword(email,passwd).addOnCompleteListener {
+            if (it.isSuccessful) {
+                firebaseUserMutableLiveData.postValue(auth.currentUser)
+            }else {
+                firebaseUserMutableLiveData.postValue(null)
+                println("No se ha podido registrar")
+            }
+        }
+    }
+
+    override fun logInDefault(email: String, passwd: String) {
+        println("inicio sesion")
+
+        auth.signInWithEmailAndPassword(email,passwd).addOnCompleteListener {
+            if (it.isSuccessful) {
+                firebaseUserMutableLiveData.postValue(auth.currentUser)
+
+            }else {
+                firebaseUserMutableLiveData.postValue(null)
+                println("No se ha podido loggear")
+            }
+        }
+    }
+
+    override fun getFirebaseUserMutableLiveData(): MutableLiveData<FirebaseUser?> {
+        return firebaseUserMutableLiveData
+    }
+
+    override fun getUserLoggedMutableLiveData(): MutableLiveData<Boolean> {
+        return userLoggedMutableLiveData
+    }
 }
 

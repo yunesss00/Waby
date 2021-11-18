@@ -1,4 +1,4 @@
-package com.racoon.waby.ui.view
+package com.racoon.waby.ui.view.login
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
