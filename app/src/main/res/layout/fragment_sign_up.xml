@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.login.LoginUserFragment">
+    tools:context=".ui.view.signup.SignUpFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,23 +37,18 @@
             android:layout_width="match_parent"
             android:layout_height="8dp" />
 
-        <Button
-            android:id="@+id/signInButton"
+        <EditText
+            android:id="@+id/repeatPasswordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Iniciar Sesión" />
+            android:ems="10"
+            android:hint="Repeat password"
+            android:inputType="textPassword"
+            android:minHeight="48dp" />
 
-        <TextView
-            android:id="@+id/textView2"
+        <Space
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Inicia sesion con google" />
-
-        <Button
-            android:id="@+id/googleButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Google" />
+            android:layout_height="8dp" />
 
         <TextView
             android:id="@+id/textView1"
@@ -67,7 +62,17 @@
             android:layout_height="wrap_content"
             android:text="Regístrate" />
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="O registrate con google" />
+
+        <Button
+            android:id="@+id/googleButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Google" />
+
     </LinearLayout>
-
-
 </FrameLayout>

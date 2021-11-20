@@ -16,4 +16,20 @@
     <string name="email">Email</string>
     <string name="request_key">request_key</string>
     <string name="bundle_key">bundle_key</string>
+
+    <string name="login_success">Success</string>
+    <string name="login_error">The username or password are wrong</string>
+    <string name="login_email">Email is not verified</string>
+    <string name="signup_username">Enter your username</string>
+    <string name="signup_password">Enter your password</string>
+    <string name="signup_password_repeat">Enter your password again</string>
+    <string name="signup_button">Signup</string>
+    <string name="signup_error_username">You should enter a valid username</string>
+    <string name="signup_error_password">You should enter a valid password</string>
+    <string name="signup_error_email">You should enter a valid email</string>
+    <string name="signup_error_password_notequals">You should enter the same password twice</string>
+    <string name="signup_success">Sign up success</string>
+    <string name="signup_error">An error has occurred</string>
+    <string name="login_error_email">Debes introducir un email</string>
+    <string name="login_error_passwd">Debe introducir una contraseña</string>
 </resources>

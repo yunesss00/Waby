@@ -7,10 +7,10 @@ import com.racoon.waby.common.SingleLiveEvent
 
 interface AuthUserUseCase {
 
-    fun firebaseDefaultAuthRegister(email: String, passwd: String)
+    fun firebaseDefaultAuthSignUp(email: String, passwd: String, repeatedPasswd: String)
     fun firebaseDefaultAuthSignIn(email: String, passwd: String)
 
-    fun getFirebaseUserMutableLiveData() : SingleLiveEvent<FirebaseUser>
-    fun getUserLoggedMutableLiveData() : MutableLiveData<Boolean>
+    fun getError() : SingleLiveEvent<Int>
+    fun getState() : SingleLiveEvent<Boolean>
 
 }

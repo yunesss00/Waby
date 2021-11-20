@@ -1,28 +1,24 @@
 package com.racoon.waby.domain.usecases.authuser
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.google.firebase.auth.FirebaseUser
 import com.racoon.waby.common.SingleLiveEvent
 import com.racoon.waby.data.repository.UserRepository
 
 class AuthUserUseCaseImpl(private val userRepository: UserRepository) : AuthUserUseCase{
 
-    override fun firebaseDefaultAuthRegister(email: String, passwd: String) {
-        println("estoy en el caso de uso")
-        return userRepository.registerDefault(email,passwd)
+    override fun firebaseDefaultAuthSignUp(email: String, passwd: String, repeatedPasswd: String) {
+        return userRepository.signUpDefault(email,passwd,repeatedPasswd)
     }
 
     override fun firebaseDefaultAuthSignIn(email: String, passwd: String) {
-        return userRepository.logInDefault(email,passwd)
+        return userRepository.signInDefault(email,passwd)
     }
 
-    override fun getFirebaseUserMutableLiveData(): SingleLiveEvent<FirebaseUser> {
-        return userRepository.getFirebaseUserMutableLiveData()
+    override fun getError(): SingleLiveEvent<Int> {
+        return userRepository.getErrorLiveData()
     }
 
-    override fun getUserLoggedMutableLiveData(): MutableLiveData<Boolean> {
-        return userRepository.getUserLoggedMutableLiveData()
+    override fun getState(): SingleLiveEvent<Boolean> {
+        return userRepository.getStateLiveData()
     }
 
 

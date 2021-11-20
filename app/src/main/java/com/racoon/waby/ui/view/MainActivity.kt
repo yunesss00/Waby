@@ -9,14 +9,12 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.racoon.waby.R
 import com.racoon.waby.databinding.ActivityMainBinding
-import com.racoon.waby.ui.viewmodel.auth.AuthUserViewModel
 
 class MainActivity : AppCompatActivity(){
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
-    private val authUserViewModel: AuthUserViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

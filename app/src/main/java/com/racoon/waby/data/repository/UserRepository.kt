@@ -1,17 +1,15 @@
 package com.racoon.waby.data.repository
 
-import androidx.lifecycle.LiveData
+import androidx.annotation.IntegerRes
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseUser
 import com.racoon.waby.common.SingleLiveEvent
-import com.racoon.waby.data.model.User
-import com.racoon.waby.vo.Resource
 
 interface UserRepository {
 
-    fun registerDefault(email: String, passwd: String)
-    fun logInDefault(email: String, passwd: String)
+    fun signUpDefault(email: String, passwd: String, repeatedPasswd: String)
+    fun signInDefault(email: String, passwd: String)
 
-    fun getFirebaseUserMutableLiveData() : SingleLiveEvent<FirebaseUser>
-    fun getUserLoggedMutableLiveData() : MutableLiveData<Boolean>
+    fun getErrorLiveData() : SingleLiveEvent<Int>
+    fun getStateLiveData() : SingleLiveEvent<Boolean>
 }

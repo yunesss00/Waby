@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerUserNameFragment"
-        android:name="com.racoon.waby.ui.view.register.RegisterUserFragment"
+        android:name="com.racoon.waby.ui.view.registerdata.RegisterUserFragment"
         android:label="Registro"
         tools:layout="@layout/fragment_register_user">
         <action

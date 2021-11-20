@@ -1,72 +1,71 @@
 package com.racoon.waby.data.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
+import androidx.annotation.IntegerRes
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.racoon.waby.R
 import com.racoon.waby.common.SingleLiveEvent
 
 
 class UserRepositoryImp : UserRepository {
 
-    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private var firebaseUserMutableLiveData = SingleLiveEvent<FirebaseUser>()
-    private var userLoggedMutableLiveData = MutableLiveData<Boolean>()
-
-    private fun start() {
-        println("esty en el init")
-
-        if (auth.currentUser != null) {
-            firebaseUserMutableLiveData.postValue(auth.currentUser)
-            val email = auth.currentUser!!.email
-            println( email)
-        } else {
-            println("No hay user")
-            //firebaseUserMutableLiveData.postValue(null)
-        }
-    }
+    private var error = SingleLiveEvent<@IntegerRes Int>()
+    private var successSignUp = SingleLiveEvent<Boolean>()
+    private var successSignIn = SingleLiveEvent<Int>()
+    private var taskCompleted = false
 
 
-    override fun registerDefault(email: String, passwd: String) {
 
-        start()
-
+    override fun signUpDefault(email: String, passwd: String, repeatedPasswd: String) {
         println("creando")
 
-        auth.createUserWithEmailAndPassword(email,passwd).addOnCompleteListener {
-            if (it.isSuccessful) {
-                firebaseUserMutableLiveData.postValue(auth.currentUser)
+        Firebase.auth.createUserWithEmailAndPassword(email,passwd).addOnCompleteListener {authResult->
+            if (taskCompleted) return@addOnCompleteListener
+            taskCompleted = true
+
+            val newUser = Firebase.auth.currentUser
+            if (authResult.isSuccessful && newUser != null) {
+                /*newUser.sendEmailVerification().addOnCompleteListener { emailTask->
+
+                }
+                Firebase.auth.signOut()*/
+                successSignUp.postValue(authResult.isSuccessful)
             }else {
-                //firebaseUserMutableLiveData.postValue(null)
                 println("No se ha podido registrar")
+                error.value = R.string.signup_error
+
+
             }
         }
     }
 
-    override fun logInDefault(email: String, passwd: String) {
-
-        start()
+    override fun signInDefault(email: String, passwd: String) {
 
         println("inicio sesion")
 
-        auth.signInWithEmailAndPassword(email,passwd).addOnCompleteListener {
-            if (it.isSuccessful) {
-                firebaseUserMutableLiveData.postValue(auth.currentUser)
+        Firebase.auth.signInWithEmailAndPassword(email,passwd).addOnCompleteListener { authResult->
+            if (authResult.isSuccessful) {
+                val user = Firebase.auth.currentUser
+                if (user != null && user.isEmailVerified) {
+                    successSignIn.value = R.string.login_success
+                }else {
+                    error.value = R.string.login_email
+                }
+
 
             }else {
-                println(auth.currentUser)
-                //firebaseUserMutableLiveData.postValue(null)
+                error.value = R.string.login_error
                 println("No se ha podido loggear")
             }
         }
     }
 
-    override fun getFirebaseUserMutableLiveData(): SingleLiveEvent<FirebaseUser> {
-        return firebaseUserMutableLiveData
+    override fun getErrorLiveData(): SingleLiveEvent<Int> {
+        return error
     }
 
-    override fun getUserLoggedMutableLiveData(): MutableLiveData<Boolean> {
-        return userLoggedMutableLiveData
+    override fun getStateLiveData(): SingleLiveEvent<Boolean> {
+        return successSignUp
     }
 }
 
