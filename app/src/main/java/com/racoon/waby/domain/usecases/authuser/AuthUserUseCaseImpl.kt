@@ -6,8 +6,6 @@ import com.racoon.waby.data.repository.UserRepository
 
 class AuthUserUseCaseImpl(private val userRepository: UserRepository) : AuthUserUseCase{
 
-
-
     override fun firebaseDefaultAuthRegister(email: String, passwd: String) {
         println("estoy en el caso de uso")
         return userRepository.registerDefault(email,passwd)
@@ -17,7 +15,7 @@ class AuthUserUseCaseImpl(private val userRepository: UserRepository) : AuthUser
         return userRepository.logInDefault(email,passwd)
     }
 
-    override fun getFirebaseUserMutableLiveData(): MutableLiveData<FirebaseUser?> {
+    override fun getFirebaseUserMutableLiveData(): MutableLiveData<FirebaseUser> {
         return userRepository.getFirebaseUserMutableLiveData()
     }
 

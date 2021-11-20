@@ -6,9 +6,10 @@ import com.racoon.waby.data.model.User
 import com.racoon.waby.vo.Resource
 
 interface UserRepository {
+
     fun registerDefault(email: String, passwd: String)
     fun logInDefault(email: String, passwd: String)
 
-    fun getFirebaseUserMutableLiveData() : MutableLiveData<FirebaseUser?>
+    fun getFirebaseUserMutableLiveData() : MutableLiveData<FirebaseUser>
     fun getUserLoggedMutableLiveData() : MutableLiveData<Boolean>
 }

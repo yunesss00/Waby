@@ -8,7 +8,7 @@ interface AuthUserUseCase {
     fun firebaseDefaultAuthRegister(email: String, passwd: String)
     fun firebaseDefaultAuthSignIn(email: String, passwd: String)
 
-    fun getFirebaseUserMutableLiveData() : MutableLiveData<FirebaseUser?>
+    fun getFirebaseUserMutableLiveData() : MutableLiveData<FirebaseUser>
     fun getUserLoggedMutableLiveData() : MutableLiveData<Boolean>
 
 }

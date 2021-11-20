@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.racoon.waby.R
 import com.racoon.waby.data.repository.UserRepositoryImp
@@ -17,6 +19,7 @@ import com.racoon.waby.ui.viewmodel.auth.VMFactory
 
 
 class LoginUserFragment : Fragment() {
+
 
 
     //ViewBiding
@@ -36,6 +39,7 @@ class LoginUserFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentLoginUserBinding.inflate(inflater,container,false)
+
 
 
 
@@ -70,8 +74,11 @@ class LoginUserFragment : Fragment() {
 
     private fun checkUserRegistered() {
         println("estoy en el check")
-        authUserViewModel.oncreate()
+        //authUserViewModel.oncreate()
         authUserViewModel.getUserData().observe(viewLifecycleOwner) { firebaseUser ->
+            val email = firebaseUser?.email
+            println("En el check email:")
+            println(email)
             if (firebaseUser != null) {
                 findNavController().navigate(R.id.action_loginUserFragment_to_registerUserFragment)
             } else {

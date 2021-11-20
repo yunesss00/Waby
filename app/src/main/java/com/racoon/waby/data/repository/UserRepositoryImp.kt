@@ -9,15 +9,19 @@ import com.google.firebase.auth.FirebaseUser
 class UserRepositoryImp : UserRepository {
 
     private var auth: FirebaseAuth
-    private var firebaseUserMutableLiveData = MutableLiveData<FirebaseUser?>()
+    private var firebaseUserMutableLiveData = MutableLiveData<FirebaseUser>()
     private var userLoggedMutableLiveData = MutableLiveData<Boolean>()
 
     init {
+        println("esty en el init")
         auth = FirebaseAuth.getInstance()
         if (auth.currentUser != null) {
             firebaseUserMutableLiveData.postValue(auth.currentUser)
+            val email = auth.currentUser!!.email
+            println( email)
         } else {
-            firebaseUserMutableLiveData.postValue(null)
+            println("No hay user")
+            //firebaseUserMutableLiveData.postValue(null)
         }
     }
 
@@ -31,7 +35,7 @@ class UserRepositoryImp : UserRepository {
             if (it.isSuccessful) {
                 firebaseUserMutableLiveData.postValue(auth.currentUser)
             }else {
-                firebaseUserMutableLiveData.postValue(null)
+                //firebaseUserMutableLiveData.postValue(null)
                 println("No se ha podido registrar")
             }
         }
@@ -45,13 +49,14 @@ class UserRepositoryImp : UserRepository {
                 firebaseUserMutableLiveData.postValue(auth.currentUser)
 
             }else {
-                firebaseUserMutableLiveData.postValue(null)
+                println(auth.currentUser)
+                //firebaseUserMutableLiveData.postValue(null)
                 println("No se ha podido loggear")
             }
         }
     }
 
-    override fun getFirebaseUserMutableLiveData(): MutableLiveData<FirebaseUser?> {
+    override fun getFirebaseUserMutableLiveData(): MutableLiveData<FirebaseUser> {
         return firebaseUserMutableLiveData
     }
 
