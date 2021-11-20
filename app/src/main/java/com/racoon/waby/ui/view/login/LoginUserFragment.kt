@@ -75,10 +75,10 @@ class LoginUserFragment : Fragment() {
     private fun checkUserRegistered() {
         println("estoy en el check")
         //authUserViewModel.oncreate()
-        authUserViewModel.getUserData().observe(viewLifecycleOwner) { firebaseUser ->
+        authUserViewModel.userData.observe(viewLifecycleOwner) { firebaseUser ->
             val email = firebaseUser?.email
             println("En el check email:")
-            println(email)
+            println(firebaseUser)
             if (firebaseUser != null) {
                 findNavController().navigate(R.id.action_loginUserFragment_to_registerUserFragment)
             } else {

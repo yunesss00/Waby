@@ -8,25 +8,25 @@ import com.racoon.waby.domain.usecases.authuser.AuthUserUseCase
 
 class AuthUserViewModel(private val authUserUseCase: AuthUserUseCase) : ViewModel(){
 
-    private val userDataSLE = SingleLiveEvent<FirebaseUser>()
+    private var userDataSLE = SingleLiveEvent<FirebaseUser>()
     private val loggedStatusSLE = SingleLiveEvent<Boolean>()
 
-    val userData: LiveData<FirebaseUser> = userDataSLE
+    var userData: LiveData<FirebaseUser> = userDataSLE
     private var loggedStatus: LiveData<Boolean> = loggedStatusSLE
 
-    fun oncreate() {
-        userData = authUserUseCase.getFirebaseUserMutableLiveData()
+    init {
+        userDataSLE = authUserUseCase.getFirebaseUserMutableLiveData()
         loggedStatus = authUserUseCase.getUserLoggedMutableLiveData()
     }
 
-    fun getUserData() : MutableLiveData<FirebaseUser> {
+    /*fun getUserData() : MutableLiveData<FirebaseUser> {
         oncreate()
         return userData
-    }
+    }*/
 
-    fun getLoggedStatus() : MutableLiveData<Boolean> {
+    /*fun getLoggedStatus() : MutableLiveData<Boolean> {
         return loggedStatus
-    }
+    }*/
 
     fun registerAuthDefault (email: String, passwd: String) {
         authUserUseCase.firebaseDefaultAuthRegister(email,passwd)

@@ -1,7 +1,9 @@
 package com.racoon.waby.domain.usecases.authuser
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseUser
+import com.racoon.waby.common.SingleLiveEvent
 import com.racoon.waby.data.repository.UserRepository
 
 class AuthUserUseCaseImpl(private val userRepository: UserRepository) : AuthUserUseCase{
@@ -15,7 +17,7 @@ class AuthUserUseCaseImpl(private val userRepository: UserRepository) : AuthUser
         return userRepository.logInDefault(email,passwd)
     }
 
-    override fun getFirebaseUserMutableLiveData(): MutableLiveData<FirebaseUser> {
+    override fun getFirebaseUserMutableLiveData(): SingleLiveEvent<FirebaseUser> {
         return userRepository.getFirebaseUserMutableLiveData()
     }
 

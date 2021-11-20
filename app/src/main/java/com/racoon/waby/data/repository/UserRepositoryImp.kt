@@ -1,20 +1,21 @@
 package com.racoon.waby.data.repository
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-
+import com.racoon.waby.common.SingleLiveEvent
 
 
 class UserRepositoryImp : UserRepository {
 
-    private var auth: FirebaseAuth
-    private var firebaseUserMutableLiveData = MutableLiveData<FirebaseUser>()
+    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private var firebaseUserMutableLiveData = SingleLiveEvent<FirebaseUser>()
     private var userLoggedMutableLiveData = MutableLiveData<Boolean>()
 
-    init {
+    private fun start() {
         println("esty en el init")
-        auth = FirebaseAuth.getInstance()
+
         if (auth.currentUser != null) {
             firebaseUserMutableLiveData.postValue(auth.currentUser)
             val email = auth.currentUser!!.email
@@ -28,6 +29,7 @@ class UserRepositoryImp : UserRepository {
 
     override fun registerDefault(email: String, passwd: String) {
 
+        start()
 
         println("creando")
 
@@ -42,6 +44,9 @@ class UserRepositoryImp : UserRepository {
     }
 
     override fun logInDefault(email: String, passwd: String) {
+
+        start()
+
         println("inicio sesion")
 
         auth.signInWithEmailAndPassword(email,passwd).addOnCompleteListener {
@@ -56,7 +61,7 @@ class UserRepositoryImp : UserRepository {
         }
     }
 
-    override fun getFirebaseUserMutableLiveData(): MutableLiveData<FirebaseUser> {
+    override fun getFirebaseUserMutableLiveData(): SingleLiveEvent<FirebaseUser> {
         return firebaseUserMutableLiveData
     }
 
