@@ -32,4 +32,11 @@
     <string name="signup_error">An error has occurred</string>
     <string name="login_error_email">Debes introducir un email</string>
     <string name="login_error_passwd">Debe introducir una contraseña</string>
+
+    <!-- MAPBOX -->
+    <string name="access_token">sk.eyJ1IjoiYW5kcm9pZHNoYWtpbCIsImEiOiJja2k0bDMzcjcwMGZ5MnBuMml5ZGtyeDd6In0.cxt1NubVuc6yVE5CdS6iUQ</string>
+    <string name="start_navigation">Comenzar ruta</string>
+    <string name="user_location_permission_explanation">Waby necesita que aceptes los permisos de localizacion para funcionar correctamente.</string>
+    <string name="user_location_permission_not_granted">No has aceptado los permisos de localizacion.</string>
+    <string name="map_style">mapbox://styles/cristiangonz/ckw9hu3k75nx514lcde4lo4vb</string>
 </resources>
