@@ -32,4 +32,10 @@
     <string name="signup_error">An error has occurred</string>
     <string name="login_error_email">Debes introducir un email</string>
     <string name="login_error_passwd">Debe introducir una contraseña</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

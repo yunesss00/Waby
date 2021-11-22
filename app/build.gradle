@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     //firebase
     id 'com.google.gms.google-services'
+
 }
 
 android {
@@ -36,6 +37,7 @@ android {
     buildFeatures {
         viewBinding true
     }
+
 }
 
 dependencies {
@@ -54,12 +56,13 @@ dependencies {
     //firebase
     implementation platform('com.google.firebase:firebase-bom:29.0.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
-        //Authentication
+
+    //Authentication
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
-        //data base firestore
-    implementation 'com.google.firebase:firebase-firestore-ktx'
 
+    //data base firestore
+    implementation 'com.google.firebase:firebase-firestore-ktx'
 
     //Fragments
     implementation("androidx.fragment:fragment-ktx:1.3.6")
@@ -68,7 +71,11 @@ dependencies {
 
     //ViewModel y livedata
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+
     //ktx viewmodel y livedata
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-rc01"
+
+    //Dagger
+    implementation("com.google.dagger:hilt-android:2.38.1")
 }
