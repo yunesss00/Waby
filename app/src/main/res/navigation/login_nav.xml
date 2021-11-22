@@ -21,7 +21,11 @@
         android:id="@+id/signUpFragment"
         android:name="com.racoon.waby.ui.view.signup.SignUpFragment"
         android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" />
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_registerUserFragment"
+            app:destination="@id/registerUserFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.racoon.waby.ui.view.login.LoginFragment"

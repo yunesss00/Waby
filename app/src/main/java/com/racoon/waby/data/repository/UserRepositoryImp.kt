@@ -1,25 +1,20 @@
 package com.racoon.waby.data.repository
 
 import androidx.annotation.IntegerRes
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.racoon.waby.R
+import com.racoon.waby.common.Resource
 import com.racoon.waby.common.SingleLiveEvent
 
 
 class UserRepositoryImp : UserRepository {
 
-    private var error = SingleLiveEvent<@IntegerRes Int>()
-    private var successSignUp = SingleLiveEvent<Boolean>()
-    private var successSignIn = SingleLiveEvent<Int>()
-    private var taskCompleted = false
-
-
-
-    override fun signUpDefault(email: String, passwd: String, repeatedPasswd: String) {
+    override fun signUpDefault(email: String, passwd: String, repeatedPasswd: String) : Resource<FirebaseUser?>? {
         println("creando")
 
-        Firebase.auth.createUserWithEmailAndPassword(email,passwd).addOnCompleteListener {authResult->
+       /* Firebase.auth.createUserWithEmailAndPassword(email,passwd).addOnCompleteListener {authResult->
             if (taskCompleted) return@addOnCompleteListener
             taskCompleted = true
 
@@ -36,36 +31,34 @@ class UserRepositoryImp : UserRepository {
 
 
             }
+        }*/
+
+        Firebase.auth.createUserWithEmailAndPassword(email,passwd)
+        val user = Firebase.auth.currentUser
+        return if (user != null) {
+            println(user.email)
+            Resource.Result(user)
+        } else {
+            null
         }
+
+
     }
 
-    override fun signInDefault(email: String, passwd: String) {
+
+
+    override fun signInDefault(email: String, passwd: String) : Resource<FirebaseUser?>{
 
         println("inicio sesion")
 
-        Firebase.auth.signInWithEmailAndPassword(email,passwd).addOnCompleteListener { authResult->
-            if (authResult.isSuccessful) {
-                val user = Firebase.auth.currentUser
-                if (user != null && user.isEmailVerified) {
-                    successSignIn.value = R.string.login_success
-                }else {
-                    error.value = R.string.login_email
-                }
+        Firebase.auth.signInWithEmailAndPassword(email,passwd)
+        val user = Firebase.auth.currentUser
 
-
-            }else {
-                error.value = R.string.login_error
-                println("No se ha podido loggear")
-            }
+        if (user != null) {
+            println(user.email)
         }
+        return Resource.Result(user)
     }
 
-    override fun getErrorLiveData(): SingleLiveEvent<Int> {
-        return error
-    }
-
-    override fun getStateLiveData(): SingleLiveEvent<Boolean> {
-        return successSignUp
-    }
 }
 

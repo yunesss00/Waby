@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.racoon.waby.R
+import com.racoon.waby.common.Resource
 import com.racoon.waby.data.repository.UserRepositoryImp
 import com.racoon.waby.databinding.FragmentLoginBinding
 import com.racoon.waby.domain.usecases.authuser.AuthUserUseCaseImpl
@@ -39,35 +41,37 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setUp()
-        setUpViewModel()
     }
 
     private fun setUp() {
-        val email = binding.emailEditText.text.toString()
-        val passwd = binding.passwordEditText.text.toString()
-        print(email)
-        binding.registerButton.setOnClickListener {viewModel.onSignUpPressed()}
-        binding.signInButton.setOnClickListener {
-            viewModel.login(email,passwd)
+
+        binding.registerButton.setOnClickListener {
+            openSignUp()
         }
-    }
 
-    private fun setUpViewModel() {
-        with(viewModel) {
-            signUpLD.observe(viewLifecycleOwner) {
-                openSignUp()
-            }
-            successLD.observe(viewLifecycleOwner) {
-                activity?.also {
-                    Toast.makeText(context,R.string.login_success,Toast.LENGTH_SHORT).show()
-                }
+        binding.signInButton.setOnClickListener {
+            val email = binding.emailEditText2.text.toString()
+            val passwd = binding.passwordEditText2.text.toString()
 
-                openAux()
+            if (email.isEmpty()) {
+                Toast.makeText(context,R.string.login_error_email,Toast.LENGTH_SHORT).show()
             }
-            errorLD.observe(viewLifecycleOwner) { msg->
-                activity?.also {
-                    Toast.makeText(context,msg,Toast.LENGTH_SHORT).show()
-                }
+            if (passwd.isEmpty()) {
+                Toast.makeText(context,R.string.login_error_passwd,Toast.LENGTH_SHORT).show()
+            }else {
+                viewModel.login(email,passwd).observe(viewLifecycleOwner, Observer {
+                    when (it) {
+                        is Resource.Loading -> {
+                            //todo
+                        }
+                        is Resource.Result -> {
+                            openAux()
+                        }
+                        is Resource.Failure -> {
+                            Toast.makeText(context,R.string.login_failed,Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                })
             }
         }
     }

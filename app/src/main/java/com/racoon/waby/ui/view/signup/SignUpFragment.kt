@@ -8,8 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.google.rpc.context.AttributeContext
 import com.racoon.waby.R
+import com.racoon.waby.common.Resource
 import com.racoon.waby.data.repository.UserRepositoryImp
 import com.racoon.waby.databinding.FragmentSignUpBinding
 import com.racoon.waby.domain.usecases.authuser.AuthUserUseCaseImpl
@@ -39,35 +42,36 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUp()
-        setUpViewModel()
     }
 
+
     private fun setUp() {
-        val email = binding.emailEditText.text.toString()
-        val passwd = binding.passwordEditText.text.toString()
-        val passwdRepeat = binding.repeatPasswordEditText.text.toString()
+
 
 
         binding.registerButton.setOnClickListener {
-            viewModel.create(email, passwd,passwdRepeat)
+
+            val email = binding.emailEditText.text.toString()
+            val passwd = binding.passwordEditText.text.toString()
+            val passwdRepeat = binding.repeatPasswordEditText.text.toString()
+
+            viewModel.create(email, passwd,passwdRepeat).observe(viewLifecycleOwner, Observer {
+                when (it) {
+                    is Resource.Loading -> {
+                        //todo
+                    }
+                    is Resource.Result -> {
+                        openRegisterFragment()
+                    }
+                    is Resource.Failure -> {
+                        Toast.makeText(context,R.string.signup_error,Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
         }
     }
 
-    private fun setUpViewModel() {
-        with(viewModel) {
-            successLD.observe(viewLifecycleOwner) {
-                activity?.also {
-                    Toast.makeText(context,R.string.signup_success,Toast.LENGTH_SHORT).show()
-                }
-                findNavController().navigateUp()
-            }
-            errorLD.observe(viewLifecycleOwner) {
-                activity?.also {
-                    Toast.makeText(context,R.string.signup_error,Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
+    private fun openRegisterFragment() {
+        findNavController().navigate(R.id.action_signUpFragment_to_registerUserFragment)
     }
-
-
 }
